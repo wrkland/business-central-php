@@ -319,7 +319,7 @@ class Constructor
     /**
      * @throws \ReflectionException
      */
-    protected static function generateDocs(, string $targetDir, string $class, EntityType $type): void
+    protected static function generateDocs( string $targetDir, string $class, EntityType $type): void
     {
         $rfc = new \ReflectionClass($class);
         $rfp = $rfc->getProperty('guarded');
