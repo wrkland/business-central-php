@@ -182,7 +182,22 @@ class Entity implements \ArrayAccess, \JsonSerializable, Jsonable, Arrayable
         } else {
             $this->validate();
 
-            $response = $this->query->post($this->attributes);
+            $attributes = $this->attributes;
+            foreach ($this->relations as $key => $relation) {
+                if ($relation instanceof EntityCollection) {
+                    $relation = array_map(static function ($item) {
+                        if ( is_array($item) && array_key_exists('$entity_type', $item)) {
+                            unset($item['$entity_type']);
+                        }
+                        return $item;
+                    }, $relation->toArray());
+                }
+                if ( $relation instanceof self) {
+                    $relation = $relation->attributes;
+                }
+                $attributes[$key] = $relation;
+            }
+            $response = $this->query->post($attributes);
 
             $this->setAttributes($response);
             $this->query->navigateTo($entity_set->name ?? Pluralizer::plural($this->type->schema_type), $this->identifiers());

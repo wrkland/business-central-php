@@ -58,7 +58,9 @@ class EntityCollection implements \ArrayAccess, \Iterator, \JsonSerializable, Js
     {
         $keys = $this->getEntitySet()->getEntityType()->keys;
         foreach ($keys as $i => $key) {
-            $keys[$i] = $item[$key];
+            if(array_key_exists($key, $item)) {
+                $keys[$i] = $item[$key];
+            }
         }
 
         $entity_query = $this->query->clone()->navigateTo($this->getEntitySet()->name, $keys);
