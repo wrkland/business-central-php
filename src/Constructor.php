@@ -35,7 +35,8 @@ class Constructor
         string $environment = 'production',
         string $namespace = 'BusinessCentral\\Models',
         string $targetDir = __DIR__,
-        string $stubDir = __DIR__ . '/../stubs'
+        string $stubDir = __DIR__ . '/../stubs',
+        string $scope = 'https://api.businesscentral.dynamics.com/.default'
     ): void
     {
         static::$map  = [];
@@ -49,6 +50,7 @@ class Constructor
                 'offline_map' => false,
                 'environment' => $environment,
                 'target_dir' => $targetDir,
+                'scope' => $scope
             ]
         );
 

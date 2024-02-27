@@ -162,7 +162,7 @@ class Schema
             $type = $matches[1] ?? $type;
         }
 
-        $type = str_replace(['Microsoft.NAV.', 'NAV.', 'ComplexTypes.'], '', $type);
+        $type = str_replace(['Microsoft.NAV.', 'NAV.', 'ComplexTypes.','mscrm.'], '', $type);
 
         return $type;
     }
