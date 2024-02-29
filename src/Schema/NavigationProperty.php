@@ -68,6 +68,11 @@ class NavigationProperty
                 $expands = $expands->getExpands();
             }
 
+            if(!is_array($expands) )
+            {
+                $expands = [$expands];
+            }
+
             $query->navigateTo($this->name)
                   ->setExpands($expands ?? []);
 
