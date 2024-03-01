@@ -75,6 +75,9 @@ class Property
             case 'Edm.DateTimeOffset':
             case 'Edm.String':
             case 'Edm.Stream':
+                if( $value instanceof \Closure) {
+                    return $value;
+                }
                 return (string)$value;
             case 'Edm.Guid':
                 if ($value === '00000000-0000-0000-0000-000000000000') {

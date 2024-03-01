@@ -111,6 +111,19 @@ class Entity implements \ArrayAccess, \JsonSerializable, Jsonable, Arrayable
             } elseif ($key === '@odata.etag') {
                 $this->etag = $attribute;
             }
+            elseif (str_contains($key,'@odata.mediaReadLink') ) {
+                $attributeName = str_replace('@odata.mediaReadLink', '', $key);
+                $mediaReadLink = $attribute;
+                $this->attributes[$attributeName] = function () use ($mediaReadLink) {
+                    try{
+                        $response = $this->query->getSdk()->client->get($mediaReadLink);
+                        return $response->getBody();
+                    }
+                    catch (\Throwable $e) {
+                        return null;
+                    }
+                };
+            }
         }
     }
 
@@ -330,6 +343,9 @@ class Entity implements \ArrayAccess, \JsonSerializable, Jsonable, Arrayable
     public function offsetGet($offset)
     {
         if ($this->getEntityType()->propertyExists($offset)) {
+            if( $this->attributes[$offset] instanceof \Closure ) {
+                return $this->attributes[$offset]();
+            }
             return $this->attributes[$offset] ?? null;
         } elseif ($this->getEntityType()->relationExists($offset)) {
             return $this->fetchRelation($offset);
@@ -428,7 +444,7 @@ class Entity implements \ArrayAccess, \JsonSerializable, Jsonable, Arrayable
     {
         $keys = [];
         foreach ($this->getEntityType()->keys as $key) {
-            $keys = $this->{$key};
+            $keys[] = $this->{$key};
         }
 
         return $keys;
