@@ -1,28 +1,28 @@
 {
-    "name"        : "coolrunner/business-central-sdk",
-    "description" : "PHP SDK for Microsoft Business Central",
-    "type"        : "library",
-    "require"     : {
-        "php"                : "^8.1",
-        "ext-json"           : "*",
-        "guzzlehttp/guzzle"  : "^7.4.5",
-        "illuminate/support" : "^10.0",
-        "rakit/validation"   : "^1.0"
+    "name": "wrkland/business-central-sdk",
+    "description": "PHP SDK for Microsoft Business Central",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.4.5",
+        "illuminate/support": "^10.0",
+        "rakit/validation": "^1.0"
     },
-    "require-dev" : {
-        "symfony/var-dumper" : "^6.3",
-        "filp/whoops"        : "^2.15"
+    "require-dev": {
+        "symfony/var-dumper": "^6.3",
+        "filp/whoops": "^2.15"
     },
-    "license"     : "MIT",
-    "authors"     : [
+    "license": "MIT",
+    "authors": [
         {
-            "name"  : "Morten Harders",
-            "email" : "mh@coolrunner.dk"
+            "name": "Swiftmade OÜ",
+            "email": "hello@swiftmade.co"
         }
     ],
-    "autoload"    : {
-        "psr-4" : {
-            "BusinessCentral\\" : "src"
+    "autoload": {
+        "psr-4": {
+            "BusinessCentral\\": "src"
         }
     }
 }
